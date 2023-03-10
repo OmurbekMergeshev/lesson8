@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+function ParentComponent(props) {
+  const [childCount, setChildCount] = useState(0)
+
+  function addChilren() {
+    setChildCount(childCount + 1)
+  }
+
+  return (
+    <div className="parent">
+      <h1>{props.title}</h1>
+      <button onClick={addChilren}>Добавить абзац</button>
+      {[...Array(childCount)].map((_, index) =>(
+        <ChildComponent key={index} text={`Абзац номер ${index + 1}`} />
+      ))}
+    </div>
+  )
+}
+
+function ChildComponent({text}) {
+  return (
+    <p>{text}</p>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ParentComponent title='Заголовок!' />
+
+  )
 }
 
-export default App;
+export default App
